@@ -30,11 +30,32 @@
 # 
 #
 class Solution:
-    def twoSum(self, nums, target):
+    #Time complexity: O(n^2)
+    #Space complexity: O(1)
+    def solution1(self, nums, target):
         while len(nums) > 1:
             selected = nums.pop()
             complementary = target - selected
             if complementary in nums:
                 return [nums.index(complementary), len(nums)]
+
+    #Time complexity: O(n)
+    #Space complexity: O(n)
+    #Use hash table
+    def solution2(self, nums, target):
+        target_dict = {}
+        found = False
+        index = 0
+        while not found:
+            complementary = target - nums[index]
+            if complementary in target_dict:
+                found = True
+            else:
+                target_dict[nums[index]] = index
+                index += 1
+
+        return [target_dict[complementary], index]
+
+
             
 
