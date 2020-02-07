@@ -51,8 +51,10 @@
 
 # @lc code=start
 class Solution:
-    #Time Complexity: O(logn)
-    #Space Complexity: O(1)
+    # Time Complexity: O(logn)
+    # Space Complexity: O(1)
+    # Binary search 
+    # Pay attention to dealing with the start and end points
     def solution1(self, n):
         start = 1
         end = n
@@ -78,6 +80,8 @@ class Solution:
     
     def solution2(self, n):
         import math
+        # k * (k + 1) <= 2 * n < (k + 1) * (k + 2)
+        #So if we get the square root of 2 * n and then do some comparison
         k = int(math.sqrt(2*n))
         if k * (k + 1) > 2 * n:
             return k - 1
