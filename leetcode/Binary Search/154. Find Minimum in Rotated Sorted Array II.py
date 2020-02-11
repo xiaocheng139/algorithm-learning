@@ -50,7 +50,7 @@ class Solution:
     # Space Complexity: O(1)
     # Duplicate elements cause the BS changed, if nums[mid] = nums[end], the last element should be excluded from the scope as there is already an element that is equal to the last element
     # Think about why compare the middle value to the end value instead of the start value -- A special situation is no rotation, so the minimum is located on the start position
-    # This will return the fist minimum value 
+    # This will return the fist minimum value (X This is wrong. This will only check the minimum value, for example [1,1,1,1,1,1,1,2,1,1])
     def findMin(self, nums):
         start = 0
         end = len(nums) - 1
@@ -68,6 +68,3 @@ class Solution:
             return nums[start]
         else:
             return nums[end]
-
-solution = Solution()
-print(solution.findMin([1,0,0,0,0])
