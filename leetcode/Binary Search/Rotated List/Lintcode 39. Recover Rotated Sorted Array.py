@@ -21,7 +21,7 @@ class Solution:
     @param nums: An integer array
     @return: nothing
     """
-    def recoverRotatedSortedArray(self, nums):
+    def solution1(self, nums):
         # Find the lowest number
         start = 0
         end = len(nums) - 1
@@ -34,8 +34,10 @@ class Solution:
                 end = mid
 
         minimum_index = end if nums[start] > nums[end] else start
-
-
+        if minimum_index == 0:
+            return nums
+        else:
+            return nums[minimum_index:] + nums[:minimum_index]
 
     # Define a function that reverse the target list
     def reverse(self, nums):
@@ -52,4 +54,4 @@ class Solution:
         return nums
 
 solution = Solution()
-print(solution.reverse([1,2,3,4,5,6,7,8]))
+print(solution.recoverRotatedSortedArray([4,5,1,2,3]))
