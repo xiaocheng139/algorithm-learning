@@ -57,53 +57,49 @@ class Recursive:
             if root.right:
                 self.traverse(root.right, result)
 
-
+# This approach is smart but not sure the space usage is the same as the regular iterative approach
+# TODO check the space usage of this approach
 class Iterative:
+    # Time complexity: O(n)
+    # Space Complexity: O(n)
     def in_order(self, root):
-        res, stack = [], []
-        current_node = root
-        while current_node or stack:
-            if current_node:
-                stack.append(current_node)
-                current_node = current_node.left
-            else:
-                current_node = stack.pop()
-                res.append(current_node.val)
-                current_node = current_node.right
-        return res
-
-    def pre_order(self, root):
-        result, stack = [], []
-        if not root:
-            return result
-
-        current_node = root
-        while current_node or stack:
-            if current_node:
-                result.append(current_node.val)
-                stack.append(current_node)
-                current_node = current_node.left
-            else:
-                current_node = stack.pop()
-                current_node = current_node.right
-
+        result, stack = [], [root]
+        while stack:
+            current_ele = stack.pop()
+            if current_ele:
+                if isinstance(current_ele, TreeNode):
+                    stack.append(current_ele.right)
+                    stack.append(current_ele.val)
+                    stack.append(current_ele.left)
+                else:
+                    result.append(current_ele)
         return result
 
-    # TODO Waiting to be corrected
+    def pre_order(self, root):
+        result, stack = [], [root]
+        while stack:
+            current_ele = stack.pop()
+            if current_ele:
+                if isinstance(current_ele, TreeNode):
+                    stack.append(current_ele.right)
+                    stack.append(current_ele.left)
+                    stack.append(current_ele.val)
+                else:
+                    result.append(current_ele)
+        return result
+
+
     def post_order(self, root):
-        result, stack = [], []
-
-        if not root:
-            return result
-
-        current_node = root
-        while current_node or stack:
-            if current_node:
-                stack.append(current_node)
-                current_node = current_node.left
-            else:
-                current_node = stack.pop()
-                current_node = current_node.right
+        result, stack = [], [root]
+        while stack:
+            current_ele = stack.pop()
+            if current_ele:
+                if isinstance(current_ele, TreeNode):
+                    stack.append(current_ele.val)
+                    stack.append(current_ele.right)
+                    stack.append(current_ele.left)
+                else:
+                    result.append(current_ele)
         return result
 
 
@@ -143,6 +139,8 @@ node3.right = node7
 # 4 5 2 6 7 3 1
 exa = Iterative()
 print(exa.post_order(node1))
+print(exa.in_order(node1))
+print(exa.pre_order(node1))
 
 # test = DQ()
 # print(test.post_order(node1))
