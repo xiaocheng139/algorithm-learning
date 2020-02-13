@@ -52,10 +52,10 @@ class Recursive:
     def in_order_traverse(self, root, result):
         if root:
             if root.left:
-                self.traverse(root.left, result)
+                self.in_order_traverse(root.left, result)
             result.append(root.vaule)
             if root.right:
-                self.traverse(root.right, result)
+                self.in_order_traverse(root.right, result)
 
 # This approach is smart but not sure the space usage is the same as the regular iterative approach
 # TODO check the space usage of this approach
