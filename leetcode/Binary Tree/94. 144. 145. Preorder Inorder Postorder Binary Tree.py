@@ -41,15 +41,15 @@ class TreeNode:
         self.right = None
 
 
-class Solution:
+class Recursive:
     # Recursive
-    def solution1(self, root):
+    def in_order(self, root):
         result = []
         if root:
-            self.traverse(root, result)
+            self.in_order_traverse(root, result)
         return result
 
-    def traverse(self, root, result):
+    def in_order_traverse(self, root, result):
         if root:
             if root.left:
                 self.traverse(root.left, result)
@@ -57,8 +57,9 @@ class Solution:
             if root.right:
                 self.traverse(root.right, result)
 
-    # Iterable
-    def solution2(self, root):
+
+class Iterative:
+    def in_order(self, root):
         res, stack = [], []
         current_node = root
         while current_node or stack:
@@ -71,18 +72,53 @@ class Solution:
                 current_node = current_node.right
         return res
 
-    # Divide and Conquer
-    def solution3(self, root):
+    def pre_order(self, root):
+        result, stack = [], []
+        if not root:
+            return result
+
+        current_node = root
+        while current_node or stack:
+            if current_node:
+                result.append(current_node.val)
+                stack.append(current_node)
+                current_node = current_node.left
+            else:
+                current_node = stack.pop()
+                current_node = current_node.right
+
+        return result
+
+    # TODO Waiting to be corrected
+    def post_order(self, root):
+        result, stack = [], []
+
+        if not root:
+            return result
+
+        current_node = root
+        while current_node or stack:
+            if current_node:
+                stack.append(current_node)
+                current_node = current_node.left
+            else:
+                current_node = stack.pop()
+                current_node = current_node.right
+        return result
+
+
+class DQ:
+    def post_order(self, root):
         result = []
         if not root:
             return result
 
-        left = self.solution3(root.left)
-        right = self.solution3(root.right)
+        left = self.post_order(root.left)
+        right = self.post_order(root.right)
 
         result.extend(left)
-        result.append(root.val)
         result.extend(right)
+        result.append(root.val)
 
         return result
 
@@ -100,6 +136,13 @@ node2.left = node4
 node2.right = node5
 node3.left = node6
 node3.right = node7
+#    1
+#  2   3
+# 4 5 6 7
 
-exa = Solution()
-print(exa.solution3(node1))
+# 4 5 2 6 7 3 1
+exa = Iterative()
+print(exa.post_order(node1))
+
+# test = DQ()
+# print(test.post_order(node1))
